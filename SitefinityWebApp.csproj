@@ -24,13 +24,10 @@
     <RootNamespace>SitefinityWebApp</RootNamespace>
     <AssemblyName>SitefinityWebApp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <SilverlightApplicationList>
-    </SilverlightApplicationList>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <SilverlightApplicationList></SilverlightApplicationList>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
@@ -1216,6 +1213,12 @@
     <Compile Include="MVC\Models\ListOfCompaniesModel.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
     <Compile Include="MVC\Models\CompanyModel.cs" />
+    <Compile Include="MVC\Controllers\NavbarController.cs" />
+    <Compile Include="MVC\Models\NavbarModel.cs" />
+    <Compile Include="MVC\Controllers\SidebarController.cs" />
+    <Compile Include="MVC\Models\SidebarModel.cs" />
+    <Compile Include="MVC\Controllers\FooterController.cs" />
+    <Compile Include="MVC\Models\FooterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -1306,6 +1309,9 @@
     <Content Include="MVC\Views\CreateCompany\Index.cshtml" />
     <Content Include="MVC\Views\ListOfCompanies\Index.cshtml" />
     <Content Include="MVC\Views\Company\Index.cshtml" />
+    <Content Include="MVC\Views\Navbar\Index.cshtml" />
+    <Content Include="MVC\Views\Sidebar\Index.cshtml" />
+    <Content Include="MVC\Views\Footer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadSpell\de-DE.tdf" />
@@ -1374,12 +1380,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

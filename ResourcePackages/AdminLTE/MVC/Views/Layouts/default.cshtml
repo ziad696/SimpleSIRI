@@ -27,7 +27,7 @@
 
 </head>
 
-<body>
+<body class="sidebar-mini">
     @Html.Section("top")
 
     <!-- Site wrapper -->
@@ -53,11 +53,11 @@
     @Html.Section("bottom")
     
     <!-- jQuery -->
-    @Html.StyleSheet(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/jquery/jquery.min.js"), "bottom", true)
+    @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/jquery/jquery.min.js"), "bottom", true)
     <!-- Bootstrap 4 -->
-    @Html.StyleSheet(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"), "bottom", true)
+    @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"), "bottom", true)
     <!-- AdminLTE App -->
-    @Html.StyleSheet(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/dist/js/adminlte.min.js"), "bottom", true)
+    @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/dist/js/adminlte.min.js"), "bottom", true)
 
 </body>
 </html>
