@@ -1214,13 +1214,10 @@
     <Compile Include="MVC\Models\CreateCompanyModel.cs" />
     <Compile Include="MVC\Controllers\ListOfCompaniesController.cs" />
     <Compile Include="MVC\Models\ListOfCompaniesModel.cs" />
-    <Compile Include="MVC\Controllers\AssetssAdminLTEController.cs" />
-    <Compile Include="MVC\Models\AssetssAdminLTEModel.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
     <Compile Include="MVC\Models\CompanyModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Services\Analytics\AnalyticsPermissionsService.svc" />
@@ -1308,7 +1305,6 @@
     <Content Include="Mvc\Views\Shared\readme.txt" />
     <Content Include="MVC\Views\CreateCompany\Index.cshtml" />
     <Content Include="MVC\Views\ListOfCompanies\Index.cshtml" />
-    <Content Include="MVC\Views\AssetssAdminLTE\Index.cshtml" />
     <Content Include="MVC\Views\Company\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
