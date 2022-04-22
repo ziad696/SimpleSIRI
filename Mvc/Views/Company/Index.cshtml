@@ -8,7 +8,7 @@
 
 @model IEnumerable<SitefinityWebApp.Mvc.Models.CompanyModel>
 
-<div class="content-wrapper" style="min-height: 1604.8px;">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -60,22 +60,24 @@
                                         foreach (var company in Model)
                                         {
                                             no++;
-                                        <tr>
-                                            <td>@no</td>
-                                            <td></td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => company.Name)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => company.Email)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => company.Website)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Detail", "Detail", new { urlName = company.urlName }) |
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>@no</td>
+                                                <td></td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => company.Name)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => company.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => company.Website)
+                                                </td>
+                                                <td>
+                                                    <a href="/Companies/Detail/@company.urlName" title="Details" class="btn btn-xs btn-default text-teal mx-1 shadow">
+                                                        <i class="fa fa-lg fa-fw fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         }
                                     }
                                     else
@@ -84,7 +86,7 @@
                                             <td>No Records Found</td>
                                         </tr>
                                     }
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->

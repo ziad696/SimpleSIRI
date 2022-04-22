@@ -1219,6 +1219,8 @@
     <Compile Include="MVC\Models\SidebarModel.cs" />
     <Compile Include="MVC\Controllers\FooterController.cs" />
     <Compile Include="MVC\Models\FooterModel.cs" />
+    <Compile Include="MVC\Controllers\DashboardController.cs" />
+    <Compile Include="MVC\Models\DashboardModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -1312,6 +1314,7 @@
     <Content Include="MVC\Views\Navbar\Index.cshtml" />
     <Content Include="MVC\Views\Sidebar\Index.cshtml" />
     <Content Include="MVC\Views\Footer\Index.cshtml" />
+    <Content Include="MVC\Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadSpell\de-DE.tdf" />
