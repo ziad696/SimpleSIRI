@@ -24,9 +24,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-
-using System.Text;
-using System.Text.RegularExpressions;
+using SitefinityWebApp.MVC.Controllers.Tools;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -70,6 +68,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyModel.Name = company.GetString("Name");
             companyModel.Email = company.GetString("Email");
             companyModel.Website = company.GetString("Website");
+
             return View("Detail", companyModel);
         }
 
@@ -98,27 +97,20 @@ namespace SitefinityWebApp.Mvc.Controllers
             DynamicContent companyItem = dynamicModuleManager.CreateDataItem(companyType);
 
             // This is how values for the properties are set
-            companyItem.SetString("Name", company.Name, cultureName); 
+            companyItem.SetString("Name", company.Name, cultureName);
             companyItem.SetString("Email", company.Email, cultureName);
             companyItem.SetString("Website", company.Website, cultureName);
 
             // Make company url slug
-            string companyUrl = Slugify(company.Name);
+            string companyUrl = Slugify.Generate(company.Name);
 
             companyItem.SetString("UrlName", companyUrl, cultureName);
             companyItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             companyItem.SetValue("PublicationDate", DateTime.UtcNow);
 
+
             companyItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft", new CultureInfo(cultureName));
 
-            // Create a version and commit the transaction in order changes to be persisted to data store
-            versionManager.CreateVersion(companyItem, false);
-            TransactionManager.CommitTransaction(transactionName);
-
-            // Use lifecycle so that LanguageData and other Multilingual related values are correctly created
-            DynamicContent checkOutCompanyItem = dynamicModuleManager.Lifecycle.CheckOut(companyItem) as DynamicContent;
-            DynamicContent checkInCompanyItem = dynamicModuleManager.Lifecycle.CheckIn(checkOutCompanyItem) as DynamicContent;
-            versionManager.CreateVersion(checkInCompanyItem, false);
 
             // Create a version and commit the transaction in order changes to be persisted to data store
             versionManager.CreateVersion(companyItem, false);
@@ -132,7 +124,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             // Create a version and commit the transaction in order changes to be persisted to data store
             versionManager.CreateVersion(companyItem, true);
 
-            // Now the item is published and can be seen in the page
+            // Now the item is published and can be seen in the page //
 
             // Commit the transaction in order for the items to be actually persisted to data store
             TransactionManager.CommitTransaction(transactionName);
@@ -147,46 +139,16 @@ namespace SitefinityWebApp.Mvc.Controllers
 			// Administration -> Settings -> Advanced -> DynamicModules -> Providers
 			var providerName = String.Empty;
 
-			// Set a transaction name
-			var transactionName = "someTransactionName";
+            // Set a transaction name
+            var transactionName = Guid.NewGuid().ToString();
 
-			DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName, transactionName);
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName, transactionName);
 			Type companyType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.SimpleSIRI.Company");
 			
 			// This is how we get the collection of Company items
 			var myCollection = dynamicModuleManager.GetDataItems(companyType);
 			// At this point myCollection contains the items from type companyType
 			return myCollection;
-        }
-        public string Slugify(string phrase)
-        {
-            // Remove all accents and make the string lower case.  
-            string output = RemoveAccents(phrase).ToLower();
-
-            // Remove all special characters from the string.  
-            output = Regex.Replace(output, @"[^A-Za-z0-9\s-]", "");
-
-            // Remove all additional spaces in favour of just one.  
-            output = Regex.Replace(output, @"\s+", " ").Trim();
-
-            // Replace all spaces with the hyphen.  
-            output = Regex.Replace(output, @"\s", "-");
-
-            // Return the slug.  
-            return output;
-        }
-
-        public string RemoveAccents(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-                return text;
-
-            text = text.Normalize(NormalizationForm.FormD);
-            char[] chars = text
-                .Where(c => CharUnicodeInfo.GetUnicodeCategory(c)
-                != UnicodeCategory.NonSpacingMark).ToArray();
-
-            return new string(chars).Normalize(NormalizationForm.FormC);
         }
     }
 }
