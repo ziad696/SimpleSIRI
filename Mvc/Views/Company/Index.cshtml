@@ -4,6 +4,8 @@
     </auto-generated>
     ------------------------------------------------------------------------------ *@
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
 @model IEnumerable<SitefinityWebApp.Mvc.Models.CompanyModel>
 
 <div class="content-wrapper">
@@ -60,7 +62,9 @@
                                             no++;
                                             <tr>
                                                 <td>@no</td>
-                                                <td></td>
+                                                <td>
+                                                    <img class="img-fluid pad" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo" width="100" height="100">
+                                                </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => company.Name)
                                                 </td>

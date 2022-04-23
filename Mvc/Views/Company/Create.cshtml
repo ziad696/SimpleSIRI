@@ -4,6 +4,8 @@
     </auto-generated>
     ------------------------------------------------------------------------------ *@
 
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+
 @model SitefinityWebApp.Mvc.Models.CompanyModel
 
 <div class="content-wrapper">
@@ -43,9 +45,9 @@
                             <div class="card-body row">
                                 <div class="col-5 text-center d-flex align-items-center justify-content-center">
                                     <div class="">
-                                        <img class="img-fluid pad" src="" alt="Company Logo">
+                                        <img class="img-fluid pad" src="@Url.WidgetContent("assets/dist/img/company_building.jpg")" alt="Company Building">
 
-                                        <div class="form-group text-left mt-4">
+                                        <div class="form-group text-left">
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input type="file" id="logo" name="logo" class="custom-file-input">
