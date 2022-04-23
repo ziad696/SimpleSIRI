@@ -24,10 +24,13 @@
     <RootNamespace>SitefinityWebApp</RootNamespace>
     <AssemblyName>SitefinityWebApp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <SilverlightApplicationList></SilverlightApplicationList>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <SilverlightApplicationList>
+    </SilverlightApplicationList>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
@@ -1206,6 +1209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureWebRole.cs" />
+    <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MVC\Controllers\CreateCompanyController.cs" />
     <Compile Include="MVC\Models\CreateCompanyModel.cs" />
@@ -1221,6 +1225,8 @@
     <Compile Include="MVC\Models\FooterModel.cs" />
     <Compile Include="MVC\Controllers\DashboardController.cs" />
     <Compile Include="MVC\Models\DashboardModel.cs" />
+    <Compile Include="MVC\Controllers\MeasurementController.cs" />
+    <Compile Include="MVC\Models\MeasurementModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -1315,6 +1321,7 @@
     <Content Include="MVC\Views\Sidebar\Index.cshtml" />
     <Content Include="MVC\Views\Footer\Index.cshtml" />
     <Content Include="MVC\Views\Dashboard\Index.cshtml" />
+    <Content Include="MVC\Views\Measurement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadSpell\de-DE.tdf" />
@@ -1365,6 +1372,7 @@
     <Content Include="MVC\Views\ListOfCompanies\Detail.cshtml" />
     <Content Include="MVC\Views\Company\Detail.cshtml" />
     <Content Include="MVC\Views\Company\Create.cshtml" />
+    <Content Include="MVC\Views\Measurement\Create.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -1383,10 +1391,12 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl></IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

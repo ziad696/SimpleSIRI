@@ -75,5 +75,64 @@ namespace SitefinityWebApp.Mvc.Controllers
             // At this point myCollection contains the items from type measurementType
             return myCollection;
         }
+
+		public ActionResult Create()
+		{
+			return View("Create");
+		}
+
+		[HttpPost] // must declared
+		public ActionResult Store(MeasurementModel measurement)
+		{
+            // Set the provider name for the DynamicModuleManager here. All available providers are listed in
+            // Administration -> Settings -> Advanced -> DynamicModules -> Providers
+            var providerName = String.Empty;
+
+            // Set a transaction name and get the version manager
+            var transactionName = Guid.NewGuid().ToString();
+            var versionManager = VersionManager.GetManager(null, transactionName);
+
+            // Set the culture name for the multilingual fields
+            var cultureName = "en";
+            Telerik.Sitefinity.Services.SystemManager.CurrentContext.Culture = new CultureInfo(cultureName);
+
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(providerName, transactionName);
+            Type measurementType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.SimpleSIRI.Measurement");
+            DynamicContent measurementItem = dynamicModuleManager.CreateDataItem(measurementType);
+
+            // This is how values for the properties are set
+            measurementItem.SetString("Detail", measurement.Detail, cultureName);
+            measurementItem.SetString("Name", measurement.Name, cultureName);
+
+            // Make measurement url slug
+            string measurementUrl = Slugify.Generate(measurement.Name);
+
+            measurementItem.SetString("UrlName", measurementUrl, cultureName);
+            measurementItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
+            measurementItem.SetValue("PublicationDate", DateTime.UtcNow);
+
+
+            measurementItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft", new CultureInfo(cultureName));
+
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(measurementItem, false);
+
+            // We can now call the following to publish the item
+            ILifecycleDataItem publishedMeasurementItem = dynamicModuleManager.Lifecycle.Publish(measurementItem);
+
+            // You need to set appropriate workflow status
+            measurementItem.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(measurementItem, true);
+
+            // Now the item is published and can be seen in the page //
+
+            // Commit the transaction in order for the items to be actually persisted to data store
+            TransactionManager.CommitTransaction(transactionName);
+
+            return RedirectToAction("Index");
+        }
 	}
 }
