@@ -1211,10 +1211,6 @@
     <Compile Include="AzureWebRole.cs" />
     <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MVC\Controllers\CreateCompanyController.cs" />
-    <Compile Include="MVC\Models\CreateCompanyModel.cs" />
-    <Compile Include="MVC\Controllers\ListOfCompaniesController.cs" />
-    <Compile Include="MVC\Models\ListOfCompaniesModel.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
     <Compile Include="MVC\Models\CompanyModel.cs" />
     <Compile Include="MVC\Controllers\NavbarController.cs" />
@@ -1314,8 +1310,6 @@
     <Content Include="Mvc\Models\readme.txt" />
     <Content Include="Mvc\Views\readme.txt" />
     <Content Include="Mvc\Views\Shared\readme.txt" />
-    <Content Include="MVC\Views\CreateCompany\Index.cshtml" />
-    <Content Include="MVC\Views\ListOfCompanies\Index.cshtml" />
     <Content Include="MVC\Views\Company\Index.cshtml" />
     <Content Include="MVC\Views\Navbar\Index.cshtml" />
     <Content Include="MVC\Views\Sidebar\Index.cshtml" />
@@ -1369,7 +1363,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\GeoLocation\GeoLite2-City.mmdb" />
-    <Content Include="MVC\Views\ListOfCompanies\Detail.cshtml" />
     <Content Include="MVC\Views\Company\Detail.cshtml" />
     <Content Include="MVC\Views\Company\Create.cshtml" />
     <Content Include="MVC\Views\Measurement\Create.cshtml" />
