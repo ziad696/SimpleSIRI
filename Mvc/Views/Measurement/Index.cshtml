@@ -37,6 +37,18 @@
                                     <i class="fas fa-plus-square"></i> Add
                                 </a>
                             </h3>
+
+                            <div class="card-tools">
+                                <div class="input-group mt-1" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -49,23 +61,25 @@
                                             {
                                                 foreach (var measurement in Model)
                                                 {
-                                                    <div class="post">
-                                                        <div class="user-block">
-                                                            <strong>@Html.DisplayFor(modelItem => measurement.Name)</strong>
-                                                        </div>
-                                                        <!-- /.user-block -->
+                                            <div class="post">
+                                                <div class="user-block">
+                                                    <strong>@Html.DisplayFor(modelItem => measurement.Name)</strong>
+                                                </div>
+                                                <!-- /.user-block -->
 
-                                                        @if (String.IsNullOrEmpty(measurement.Detail))
-                                                        {
-                                                          <p><i>No detail described</i></p>
-                                                        }
+                                                @if (String.IsNullOrEmpty(measurement.Detail))
+                                                {
+                                                    <p><i>No detail described</i></p>
+                                                }
 
-                                                        @Html.DisplayFor(modelItem => measurement.Detail)
+                                                <p>
+                                                    @Html.DisplayFor(modelItem => measurement.Detail)
+                                                </p>
 
-                                                        @*<p>
-                                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v1</a>
-                                                        </p>*@
-                                                    </div>
+                                                @*<p>
+                                                    <a href="#" class="link-black text-sm"><i class="fas fa-edit mr-1"></i> Review</a>
+                                                </p>*@
+                                            </div>
                                                 }
                                             }
                                         </div>
