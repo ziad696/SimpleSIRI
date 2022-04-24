@@ -40,9 +40,9 @@ namespace SitefinityWebApp.Mvc.Controllers
 		{
 			this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
 		}
-	
-		// GET: Company
-		public ActionResult Index()
+
+        // GET: Company
+        public ActionResult Index()
 		{
 			List<CompanyModel> companyModel = new List<CompanyModel>();
 
@@ -68,8 +68,9 @@ namespace SitefinityWebApp.Mvc.Controllers
 			return View("Index", companyModel);
 		}
 
-		// GET: Detail
-		public ActionResult Detail(string urlName)
+        [RelativeRoute("Detail/{urlName}")]
+        // GET: Detail
+        public ActionResult Detail(string urlName)
 		{
             var companyModel = new CompanyModel();
             var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
@@ -81,16 +82,37 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyModel.Email = company.GetString("Email");
             companyModel.Website = company.GetString("Website");
             companyModel.urlLogo = urlLogo;
+            companyModel.urlName = company.UrlName;
 
             return View("Detail", companyModel);
         }
 
+        [RelativeRoute("Detail/{urlName}/do-measurement")]
+        public ActionResult DoMeasurement(string urlName)
+        {
+            var companyModel = new CompanyModel();
+            var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
+
+            var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
+            string urlLogo = (logo is null) ? "" : logo.MediaUrl;
+
+            companyModel.Name = company.GetString("Name");
+            companyModel.Email = company.GetString("Email");
+            companyModel.Website = company.GetString("Website");
+            companyModel.urlLogo = urlLogo;
+            companyModel.urlName = company.UrlName;
+
+            return View("DoMeasurement", companyModel);
+        }
+
+        [RelativeRoute("Create")]
         public ActionResult Create()
 		{
 			return View("Create");
 		}
 
-		[HttpPost] // must declared
+        [RelativeRoute("Store")]
+        [HttpPost] // must declared
         public ActionResult Store(CompanyModel company)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in

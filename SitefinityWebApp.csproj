@@ -1366,6 +1366,7 @@
     <Content Include="MVC\Views\Company\Detail.cshtml" />
     <Content Include="MVC\Views\Company\Create.cshtml" />
     <Content Include="MVC\Views\Measurement\Create.cshtml" />
+    <Content Include="MVC\Views\Company\DoMeasurement.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

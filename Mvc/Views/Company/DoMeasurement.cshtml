@@ -20,7 +20,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Master Data</a></li>
                         <li class="breadcrumb-item"><a href="/Companies">Companies</a></li>
-                        <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item active">Do Measurement</li>
                     </ol>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <i class="fas fa-edit"></i> Form
+                                    <i class="fas fa-edit"></i> Form measurement
                                 </h3>
                             </div>
                             <div class="card-body row">
@@ -69,12 +69,6 @@
                                         @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
                                         @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Measurement Value</label>
-                                        <div class="form control">
-                                            <strong><u>0/0</u></strong> <a href="/Companies/Detail/@Model.urlName/do-measurement" type="button" class="btn btn-primary btn-block mt-1"><i class="fas fa-edit"></i> Do Measurement</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
