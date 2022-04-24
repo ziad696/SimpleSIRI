@@ -1210,6 +1210,7 @@
   <ItemGroup>
     <Compile Include="AzureWebRole.cs" />
     <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
+    <Compile Include="MVC\ViewModels\CompanyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
     <Compile Include="MVC\Models\CompanyModel.cs" />

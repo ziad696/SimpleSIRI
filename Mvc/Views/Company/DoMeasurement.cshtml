@@ -6,7 +6,7 @@
 
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
-@model SitefinityWebApp.Mvc.Models.CompanyModel
+@model SitefinityWebApp.MVC.ViewModels.CompanyViewModel
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,54 +28,94 @@
     </section>
 
     <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
 
-    @using (Html.BeginForm())
-    {
-        <section class="content">
-            <div class="container-fluid">
+                    <!-- Company Profile -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fas fa-edit"></i> Form measurement
-                                </h3>
+                                @if (String.IsNullOrEmpty(Model.Company.urlLogo))
+                                {
+                                    <img class="profile-user-img img-fluid img-circle" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo">
+                                }
+                                else
+                                {
+                                    <img class="profile-user-img img-fluid img-circle" src="@Model.Company.urlLogo" alt="Company Logo">
+                                }
                             </div>
-                            <div class="card-body row">
-                                <div class="col-5 text-center d-flex align-items-center justify-content-center">
-                                    @if (String.IsNullOrEmpty(Model.urlLogo))
-                                    {
-                                        <img class="img-fluid pad" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo" width="300" height="300">
-                                    }
-                                    else
-                                    {
-                                        <img class="img-fluid pad" src="@Model.urlLogo" alt="Company Logo" width="300" height="300">
-                                    }
+
+                            <h3 class="profile-username text-center">@Model.Company.Name</h3>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Email :</b> <span class="text-muted float-right">@Model.Company.Email</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Website :</b> <span class="text-muted float-right">@Model.Company.Website</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header p-2">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit"></i> Measurement Form
+                            </h3>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            @foreach (var measurement in @Model.Measurements)
+                            {
+                                <div class="post">
+                                    <div class="user-block">
+                                        <strong>@Html.DisplayFor(modelItem => measurement.Name)</strong>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <div class="row">
+                                        <div class="col-8">
+
+                                            @if (String.IsNullOrEmpty(measurement.Detail))
+                                            {
+                                                <p><i>No detail described</i></p>
+                                            }
+
+                                            <p>
+                                                @Html.DisplayFor(modelItem => measurement.Detail)
+                                            </p>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group row">
+                                                <label id="grade" for="grade" class="col-8"></label>
+                                                <div class="col-4">
+                                                    @*<input type="range" class="custom-range" id="grade" min="0" max="10">*@
+                                                    <input type="number" class="form-control" id="grade" name="grade[]" value="0" min="0" max="10">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input class="form-control form-control-sm" name="summary[]" type="text" placeholder="Give summary (Optional)">
                                 </div>
-                                <div class="col-7">
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" });
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                        @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+                            }
+
+                        </div><!-- /.card-body -->
+                        <div class="card-footer">
+                            <input type="submit" class="btn btn-primary float-right" value="Submit">
                         </div>
                     </div>
+                    <!-- /.card -->
                 </div>
+                <!-- /.col -->
             </div>
-        </section>
-    }
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>

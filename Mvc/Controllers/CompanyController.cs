@@ -30,6 +30,7 @@ using Telerik.Sitefinity.RelatedData;
 
 using Telerik.Sitefinity.Libraries.Model;
 using System.Text.RegularExpressions;
+using SitefinityWebApp.MVC.ViewModels;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -90,19 +91,46 @@ namespace SitefinityWebApp.Mvc.Controllers
         [RelativeRoute("Detail/{urlName}/do-measurement")]
         public ActionResult DoMeasurement(string urlName)
         {
-            var companyModel = new CompanyModel();
+            // Company
             var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
 
             var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
             string urlLogo = (logo is null) ? "" : logo.MediaUrl;
 
-            companyModel.Name = company.GetString("Name");
-            companyModel.Email = company.GetString("Email");
-            companyModel.Website = company.GetString("Website");
-            companyModel.urlLogo = urlLogo;
-            companyModel.urlName = company.UrlName;
+            var companyModel = new CompanyModel()
+            {
+                Name = company.GetString("Name"),
+                Email = company.GetString("Email"),
+                Website = company.GetString("Website"),
+                urlLogo = urlLogo,
+                urlName = company.UrlName,
+            };
 
-            return View("DoMeasurement", companyModel);
+            // Measurements
+            var measurementController = new MeasurementController();
+            var measurements = measurementController.RetrieveCollectionOfMeasurements().Where(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live && p.Visible == true);
+
+            List<MeasurementModel> measurementModel = new List<MeasurementModel>();
+            
+            foreach (var measurement in measurements)
+            {
+                measurementModel.Add(
+                    new MeasurementModel
+                    {
+                        Name = measurement.GetString("Name"),
+                        Detail = measurement.GetString("Detail"),
+                    }
+                );
+            }
+
+            // CompanyViewModel
+            var companyViewModel = new CompanyViewModel()
+            {
+                Company = companyModel,
+                Measurements = measurementModel,
+            };
+
+            return View("DoMeasurement", companyViewModel);
         }
 
         [RelativeRoute("Create")]
