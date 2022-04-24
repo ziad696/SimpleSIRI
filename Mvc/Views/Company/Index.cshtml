@@ -63,7 +63,14 @@
                                             <tr>
                                                 <td>@no</td>
                                                 <td>
-                                                    <img class="img-fluid pad" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo" width="100" height="100">
+                                                    @if (String.IsNullOrEmpty(company.urlLogo))
+                                                    {
+                                                        <img class="img-fluid pad" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo" width="100" height="100">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="img-fluid pad" src="@company.urlLogo" alt="Company Logo" width="100" height="100">
+                                                    }
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => company.Name)

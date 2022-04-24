@@ -25,6 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using SitefinityWebApp.MVC.Controllers.Tools;
+using Telerik.Sitefinity.Modules.Libraries;
+using Telerik.Sitefinity.RelatedData;
+
+using Telerik.Sitefinity.Libraries.Model;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -45,12 +49,16 @@ namespace SitefinityWebApp.Mvc.Controllers
 
 			foreach (var company in companies)
             {
-				companyModel.Add(
+                var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
+                string urlLogo = (logo is null) ? "" : logo.MediaUrl;
+
+                companyModel.Add(
 					new CompanyModel 
 					{
 						Name = company.GetString("Name"),
 						Email = company.GetString("Email"),
 						Website = company.GetString("Website"),
+                        urlLogo = urlLogo,
                         urlName = company.UrlName
 					}
 				);
@@ -65,9 +73,13 @@ namespace SitefinityWebApp.Mvc.Controllers
             var companyModel = new CompanyModel();
             var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
 
+            var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
+            string urlLogo = (logo is null) ? "" : logo.MediaUrl;
+
             companyModel.Name = company.GetString("Name");
             companyModel.Email = company.GetString("Email");
             companyModel.Website = company.GetString("Website");
+            companyModel.urlLogo = urlLogo;
 
             return View("Detail", companyModel);
         }

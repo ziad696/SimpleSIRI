@@ -15,5 +15,6 @@ namespace SitefinityWebApp.Mvc.Models
 		public string Email { get; set; }
 		public string Website { get; set; }
 		public string urlName { get; set; }
+        public string urlLogo { get; set; }
     }
 }
