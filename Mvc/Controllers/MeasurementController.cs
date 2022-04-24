@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using SitefinityWebApp.MVC.Controllers.Tools;
+using System.Text.RegularExpressions;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -104,10 +105,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             measurementItem.SetString("Detail", measurement.Detail, cultureName);
             measurementItem.SetString("Name", measurement.Name, cultureName);
 
-            // Make measurement url slug
-            string measurementUrl = Slugify.Generate(measurement.Name);
-
-            measurementItem.SetString("UrlName", measurementUrl, cultureName);
+            measurementItem.SetString("UrlName", new Lstring(Regex.Replace(measurement.Name.ToLower(), Slugify.UrlNameCharsToReplace, Slugify.UrlNameReplaceString)), cultureName);
             measurementItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             measurementItem.SetValue("PublicationDate", DateTime.UtcNow);
 

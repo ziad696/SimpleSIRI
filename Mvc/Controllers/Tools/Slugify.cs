@@ -11,6 +11,10 @@ namespace SitefinityWebApp.MVC.Controllers.Tools
 {
     public class Slugify
     {
+        // Used to set the URLs for DynamicContent items.
+        public static string UrlNameCharsToReplace = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+        public static string UrlNameReplaceString = "-";
+
         public static string Generate(string phrase)
         {
             // Remove all accents and make the string lower case.  

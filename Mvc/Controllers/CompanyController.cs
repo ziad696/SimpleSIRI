@@ -29,13 +29,14 @@ using Telerik.Sitefinity.Modules.Libraries;
 using Telerik.Sitefinity.RelatedData;
 
 using Telerik.Sitefinity.Libraries.Model;
+using System.Text.RegularExpressions;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
 	[ControllerToolboxItem(Name = "Company_MVC", Title = "Company", SectionName = "CustomWidgets")]
 	public class CompanyController : Controller, IPersonalizable
 	{
-		protected override void HandleUnknownAction(string actionName)
+        protected override void HandleUnknownAction(string actionName)
 		{
 			this.ActionInvoker.InvokeAction(this.ControllerContext, "Index");
 		}
@@ -113,10 +114,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyItem.SetString("Email", company.Email, cultureName);
             companyItem.SetString("Website", company.Website, cultureName);
 
-            // Make company url slug
-            string companyUrl = Slugify.Generate(company.Name);
-
-            companyItem.SetString("UrlName", companyUrl, cultureName);
+            companyItem.SetString("UrlName", new Lstring(Regex.Replace(company.Name.ToLower(), Slugify.UrlNameCharsToReplace, Slugify.UrlNameReplaceString)), cultureName);
             companyItem.SetValue("Owner", SecurityManager.GetCurrentUserId());
             companyItem.SetValue("PublicationDate", DateTime.UtcNow);
 
