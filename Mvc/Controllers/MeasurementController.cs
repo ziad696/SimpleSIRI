@@ -44,13 +44,13 @@ namespace SitefinityWebApp.Mvc.Controllers
 
 			var measurements = RetrieveCollectionOfMeasurements().Where(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live && p.Visible == true);
 
-			foreach (var company in measurements)
+			foreach (var measurement in measurements)
 			{
 				measurementModel.Add(
 					new MeasurementModel
 					{
-						Name = company.GetString("Name"),
-						Detail = company.GetString("Detail"),
+						Name = measurement.GetString("Name"),
+						Detail = measurement.GetString("Detail"),
 					}
 				);
 			}
