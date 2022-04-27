@@ -162,7 +162,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             }
 
             // CompanyViewModel
-            var companyViewModel = new CompanyViewModel()
+            var companyViewModel = new CompanyDoMeasurementViewModel()
             {
                 Company = companyModel,
                 Measurements = measurementModel,
@@ -173,7 +173,7 @@ namespace SitefinityWebApp.Mvc.Controllers
         
         [RelativeRoute("StoreMeasurementResult")]
         [HttpPost] // must declared
-        public ActionResult StoreMeasurementResult(CompanyViewModel companyViewModel)
+        public ActionResult StoreMeasurementResult(CompanyDoMeasurementViewModel companyViewModel)
         {
             var measurementResultController = new MeasurementResultController();
 
@@ -223,7 +223,7 @@ namespace SitefinityWebApp.Mvc.Controllers
             // Get related item manager
             LibrariesManager logoManager = LibrariesManager.GetManager();
             var logoItem = logoManager.GetImages().FirstOrDefault(i => i.Status == ContentLifecycleStatus.Master);
-            // -/ end Get related item manager
+            // -/ end Get related item manager -> aku harus ubah var logo item disini dengan gambar yg aku upload di library "company logo" sitefinity
 
             if (logoItem != null)
             {

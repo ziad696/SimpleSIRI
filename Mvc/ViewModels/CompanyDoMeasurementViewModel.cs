@@ -6,7 +6,7 @@ using SitefinityWebApp.Mvc.Models;
 
 namespace SitefinityWebApp.MVC.ViewModels
 {
-    public class CompanyViewModel
+    public class CompanyDoMeasurementViewModel
     {
         public CompanyModel Company { get; set; }
         public List<MeasurementModel> Measurements { get; set; }

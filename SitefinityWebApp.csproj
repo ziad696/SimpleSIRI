@@ -1212,7 +1212,7 @@
     <Compile Include="MVC\Controllers\MeasurementResultController.cs" />
     <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
     <Compile Include="MVC\ViewModels\CompanyDetailViewModel.cs" />
-    <Compile Include="MVC\ViewModels\CompanyViewModel.cs" />
+    <Compile Include="MVC\ViewModels\CompanyDoMeasurementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
     <Compile Include="MVC\Models\CompanyModel.cs" />
