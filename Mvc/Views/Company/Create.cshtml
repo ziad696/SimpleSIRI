@@ -29,7 +29,7 @@
 
     <!-- Main content -->
 
-    @using (Html.BeginForm("Store", "Company"))
+    @using (Html.BeginForm("Store", "Company", FormMethod.Post, new { enctype="multipart/form-data" }))
     {
         <section class="content">
             <div class="container-fluid">
@@ -50,10 +50,10 @@
                                         <div class="form-group text-left">
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" id="logo" name="logo" class="custom-file-input">
-                                                    <label class="custom-file-label" for="logo">Logo (JPG/PNG 300 x 300)</label>
+                                                    <input type="file" id="companyLogo" name="companyLogo" class="form-control">
                                                 </div>
                                             </div>
+                                            <span class="text-muted" for="companyLogo">*Logo (JPG/PNG 300 x 300)</span>
                                             @*<span class="text-danger">error message</span>*@
                                         </div>
 

@@ -1211,6 +1211,7 @@
     <Compile Include="AzureWebRole.cs" />
     <Compile Include="MVC\Controllers\MeasurementResultController.cs" />
     <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
+    <Compile Include="MVC\Controllers\Tools\UploadImage.cs" />
     <Compile Include="MVC\ViewModels\CompanyDetailViewModel.cs" />
     <Compile Include="MVC\ViewModels\CompanyDoMeasurementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

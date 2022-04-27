@@ -31,6 +31,8 @@ using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Libraries.Model;
 using System.Text.RegularExpressions;
 using SitefinityWebApp.MVC.ViewModels;
+using System.Web;
+using System.IO;
 
 namespace SitefinityWebApp.Mvc.Controllers
 {
@@ -197,7 +199,7 @@ namespace SitefinityWebApp.Mvc.Controllers
 
         [RelativeRoute("Store")]
         [HttpPost] // must declared
-        public ActionResult Store(CompanyModel company)
+        public ActionResult Store(CompanyModel company, HttpPostedFileBase companyLogo)
         {
             // Set the provider name for the DynamicModuleManager here. All available providers are listed in
             // Administration -> Settings -> Advanced -> DynamicModules -> Providers
@@ -221,8 +223,14 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyItem.SetString("Website", company.Website, cultureName);
 
             // Get related item manager
+            string albumName = "company-logo";
+            string fileName = company.Name +"-"+ Path.GetFileNameWithoutExtension(companyLogo.FileName);
+            string fileExt = Path.GetExtension(companyLogo.FileName);
+
+            Guid? fileId = UploadImage.CreateImageWithNativeAPI(albumName, fileName, companyLogo.InputStream, fileName, fileExt);
+
             LibrariesManager logoManager = LibrariesManager.GetManager();
-            var logoItem = logoManager.GetImages().FirstOrDefault(i => i.Status == ContentLifecycleStatus.Master);
+            var logoItem = logoManager.GetImages().FirstOrDefault(i => i.Status == ContentLifecycleStatus.Master && i.Id == fileId);
             // -/ end Get related item manager -> aku harus ubah var logo item disini dengan gambar yg aku upload di library "company logo" sitefinity
 
             if (logoItem != null)
