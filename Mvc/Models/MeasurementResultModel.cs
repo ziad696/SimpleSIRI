@@ -9,12 +9,9 @@ using Telerik.Sitefinity.Mvc;
 
 namespace SitefinityWebApp.Mvc.Models
 {
-	public class CompanyModel
+	public class MeasurementResultModel
 	{
-		public string Name { get; set; }
-		public string Email { get; set; }
-		public string Website { get; set; }
-		public string urlName { get; set; }
-        public string urlLogo { get; set; }
+		public decimal Grade { get; set; }
+		public string Summary { get; set; }
 	}
 }

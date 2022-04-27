@@ -1209,7 +1209,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureWebRole.cs" />
+    <Compile Include="MVC\Controllers\MeasurementResultController.cs" />
     <Compile Include="MVC\Controllers\Tools\Slugify.cs" />
+    <Compile Include="MVC\ViewModels\CompanyDetailViewModel.cs" />
     <Compile Include="MVC\ViewModels\CompanyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MVC\Controllers\CompanyController.cs" />
@@ -1224,6 +1226,7 @@
     <Compile Include="MVC\Models\DashboardModel.cs" />
     <Compile Include="MVC\Controllers\MeasurementController.cs" />
     <Compile Include="MVC\Models\MeasurementModel.cs" />
+    <Compile Include="MVC\Models\MeasurementResultModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -1317,6 +1320,7 @@
     <Content Include="MVC\Views\Footer\Index.cshtml" />
     <Content Include="MVC\Views\Dashboard\Index.cshtml" />
     <Content Include="MVC\Views\Measurement\Index.cshtml" />
+    <Content Include="MVC\Views\MeasurementResult\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\RadSpell\de-DE.tdf" />

@@ -47,7 +47,7 @@ namespace SitefinityWebApp.Mvc.Controllers
 		{
 			List<CompanyModel> companyModel = new List<CompanyModel>();
 
-			var companies = RetrieveCollectionOfCompanies().Where(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live && p.Visible == true);
+			var companies = RetrieveCollectionOfCompanies().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true);
 
 			foreach (var company in companies)
             {
@@ -73,8 +73,8 @@ namespace SitefinityWebApp.Mvc.Controllers
         // GET: Detail
         public ActionResult Detail(string urlName)
 		{
-            var companyModel = new CompanyModel();
-            var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
+            var companyModel = new CompanyDetailViewModel();
+            var company = RetrieveCollectionOfCompanies().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true && p.UrlName == urlName).FirstOrDefault();
 
             var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
             string urlLogo = (logo is null) ? "" : logo.MediaUrl;
@@ -85,6 +85,43 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyModel.urlLogo = urlLogo;
             companyModel.urlName = company.UrlName;
 
+            decimal sumOfGradeCompanyMeasuremenResult = 0;
+            int totalOfCompanyMeasurementResult = 0;
+            bool hasMeasurementResult = false;
+            bool hasCompleteMeasurement = false;
+
+            // totalOfMeasurement
+            var measurementController = new MeasurementController();
+            var measurements = measurementController.RetrieveCollectionOfMeasurements().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true);
+            int totalOfMeasurements = measurements.Count();
+
+            // totalOfCompanyMeasurementResult
+            totalOfCompanyMeasurementResult = company.GetChildItemsCount("Telerik.Sitefinity.DynamicTypes.Model.SimpleSIRI.MeasurementResult");
+
+            if (totalOfCompanyMeasurementResult > 0) // has chlid item
+            {
+                hasMeasurementResult = true;
+
+                if (totalOfCompanyMeasurementResult >= totalOfMeasurements)
+                {
+                    hasCompleteMeasurement = true; // if not complete (still false), I plan to able to fill measurement which not complete 
+                }
+
+                var measurementResults = company.GetChildItems("Telerik.Sitefinity.DynamicTypes.Model.SimpleSIRI.MeasurementResult");
+
+                foreach (var measurementResult in measurementResults)
+                {
+
+                    sumOfGradeCompanyMeasuremenResult += measurementResult.GetValue<decimal>("Grade");
+                }
+            }
+
+            companyModel.sumOfGradeCompanyMeasuremenResult = sumOfGradeCompanyMeasuremenResult;
+            companyModel.totalOfCompanyMeasurementResult = totalOfCompanyMeasurementResult;
+            companyModel.totalOfMeasurements = totalOfMeasurements;
+            companyModel.hasMeasurementResult = hasMeasurementResult;
+            companyModel.hasCompleteMeasurement = hasCompleteMeasurement;
+
             return View("Detail", companyModel);
         }
 
@@ -92,7 +129,7 @@ namespace SitefinityWebApp.Mvc.Controllers
         public ActionResult DoMeasurement(string urlName)
         {
             // Company
-            var company = RetrieveCollectionOfCompanies().Where(c => c.UrlName == urlName).FirstOrDefault();
+            var company = RetrieveCollectionOfCompanies().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true && p.UrlName == urlName).FirstOrDefault();
 
             var logo = company.GetRelatedItems<Image>("Logo").FirstOrDefault();
             string urlLogo = (logo is null) ? "" : logo.MediaUrl;
@@ -108,7 +145,7 @@ namespace SitefinityWebApp.Mvc.Controllers
 
             // Measurements
             var measurementController = new MeasurementController();
-            var measurements = measurementController.RetrieveCollectionOfMeasurements().Where(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live && p.Visible == true);
+            var measurements = measurementController.RetrieveCollectionOfMeasurements().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true);
 
             List<MeasurementModel> measurementModel = new List<MeasurementModel>();
             
@@ -119,6 +156,7 @@ namespace SitefinityWebApp.Mvc.Controllers
                     {
                         Name = measurement.GetString("Name"),
                         Detail = measurement.GetString("Detail"),
+                        urlName = measurement.UrlName,
                     }
                 );
             }
@@ -131,6 +169,24 @@ namespace SitefinityWebApp.Mvc.Controllers
             };
 
             return View("DoMeasurement", companyViewModel);
+        }
+        
+        [RelativeRoute("StoreMeasurementResult")]
+        [HttpPost] // must declared
+        public ActionResult StoreMeasurementResult(CompanyViewModel companyViewModel)
+        {
+            var measurementResultController = new MeasurementResultController();
+
+            for (int i = 0; i < companyViewModel.Measurements.Count; i++) {
+
+                measurementResultController.store(
+                    companyViewModel.Measurements[i].Grade,
+                    companyViewModel.Measurements[i].Summary,
+                    companyViewModel.Measurements[i].urlName,
+                    companyViewModel.Company.urlName);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [RelativeRoute("Create")]
@@ -163,6 +219,17 @@ namespace SitefinityWebApp.Mvc.Controllers
             companyItem.SetString("Name", company.Name, cultureName);
             companyItem.SetString("Email", company.Email, cultureName);
             companyItem.SetString("Website", company.Website, cultureName);
+
+            // Get related item manager
+            LibrariesManager logoManager = LibrariesManager.GetManager();
+            var logoItem = logoManager.GetImages().FirstOrDefault(i => i.Status == ContentLifecycleStatus.Master);
+            // -/ end Get related item manager
+
+            if (logoItem != null)
+            {
+                // This is how we relate an item
+                companyItem.CreateRelation(logoItem, "Logo");
+            }
 
             companyItem.SetString("UrlName", new Lstring(Regex.Replace(company.Name.ToLower(), Slugify.UrlNameCharsToReplace, Slugify.UrlNameReplaceString)), cultureName);
             companyItem.SetValue("Owner", SecurityManager.GetCurrentUserId());

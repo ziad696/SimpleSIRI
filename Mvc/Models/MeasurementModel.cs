@@ -13,5 +13,8 @@ namespace SitefinityWebApp.Mvc.Models
 	{
 		public string Name { get; set; }
 		public string Detail { get; set; }
+		public int Grade { get; set; }
+		public string Summary { get; set; }
+		public string urlName { get; set; }
 	}
 }

@@ -28,94 +28,99 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
+    @using (Html.BeginForm("StoreMeasurementResult", "Company"))
+    {
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
 
-                    <!-- Company Profile -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
+                        <!-- Company Profile -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
 
-                                @if (String.IsNullOrEmpty(Model.Company.urlLogo))
-                                {
-                                    <img class="profile-user-img img-fluid img-circle" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo">
-                                }
-                                else
-                                {
-                                    <img class="profile-user-img img-fluid img-circle" src="@Model.Company.urlLogo" alt="Company Logo">
-                                }
+                                    @if (String.IsNullOrEmpty(Model.Company.urlLogo))
+                                    {
+                                        <img class="profile-user-img img-fluid img-circle" src="@Url.WidgetContent("assets/dist/img/company.jpg")" alt="Company Logo">
+                                    }
+                                    else
+                                    {
+                                        <img class="profile-user-img img-fluid img-circle" src="@Model.Company.urlLogo" alt="Company Logo">
+                                    }
+                                </div>
+
+                                <h3 class="profile-username text-center">@Model.Company.Name</h3>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Email :</b> <span class="text-muted float-right">@Model.Company.Email</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Website :</b> <span class="text-muted float-right">@Model.Company.Website</span>
+                                    </li>
+                                </ul>
                             </div>
-
-                            <h3 class="profile-username text-center">@Model.Company.Name</h3>
-
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Email :</b> <span class="text-muted float-right">@Model.Company.Email</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Website :</b> <span class="text-muted float-right">@Model.Company.Website</span>
-                                </li>
-                            </ul>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-9">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header p-2">
-                            <h3 class="card-title">
-                                <i class="fas fa-edit"></i> Measurement Form
-                            </h3>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            @foreach (var measurement in @Model.Measurements)
-                            {
-                                <div class="post">
-                                    <div class="user-block">
-                                        <strong>@Html.DisplayFor(modelItem => measurement.Name)</strong>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <div class="row">
-                                        <div class="col-8">
-
-                                            @if (String.IsNullOrEmpty(measurement.Detail))
-                                            {
-                                                <p><i>No detail described</i></p>
-                                            }
-
-                                            <p>
-                                                @Html.DisplayFor(modelItem => measurement.Detail)
-                                            </p>
+                    <!-- /.col -->
+                    <div class="col-md-9">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header p-2">
+                                <h3 class="card-title">
+                                    <i class="fas fa-edit"></i> Measurement Form
+                                </h3>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                @for (int i = 0; i < Model.Measurements.Count; i++)
+                                                {
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <strong>@Html.DisplayFor(modelItem => @Model.Measurements[i].Name)</strong>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="form-group row">
-                                                <label id="grade" for="grade" class="col-8"></label>
-                                                <div class="col-4">
-                                                    @*<input type="range" class="custom-range" id="grade" min="0" max="10">*@
-                                                    <input type="number" class="form-control" id="grade" name="grade[]" value="0" min="0" max="10">
+                                        <!-- /.user-block -->
+                                        <div class="row">
+                                            <div class="col-8">
+
+                                                @if (String.IsNullOrEmpty(@Model.Measurements[i].Detail))
+                                                {
+                                                    <p><i>No detail described</i></p>
+                                                }
+
+                                                <p>
+                                                    @Html.DisplayFor(modelItem => @Model.Measurements[i].Detail)
+                                                </p>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group row">
+                                                    <label id="grade" for="grade" class="col-8"></label>
+                                                    <div class="col-4">
+                                                        <input type="number" class="form-control" id="grade" name="Measurements[@i].Grade" value="0" min="0" max="10" required>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <input class="form-control form-control-sm" name="Measurements[@i].Summary" type="text" placeholder="Give summary (Optional)" >
                                     </div>
-                                    <input class="form-control form-control-sm" name="summary[]" type="text" placeholder="Give summary (Optional)">
-                                </div>
-                            }
 
-                        </div><!-- /.card-body -->
-                        <div class="card-footer">
-                            <input type="submit" class="btn btn-primary float-right" value="Submit">
+                                    @Html.HiddenFor(model => @Model.Measurements[i].urlName)
+                                }
+
+                            </div><!-- /.card-body -->
+                            <div class="card-footer">
+                                @Html.HiddenFor(model => model.Company.urlName)
+                                <input type="submit" class="btn btn-primary float-right" value="Submit">
+                            </div>
                         </div>
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    }
 </div>

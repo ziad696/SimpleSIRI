@@ -42,7 +42,7 @@ namespace SitefinityWebApp.Mvc.Controllers
 		{
 			List<MeasurementModel> measurementModel = new List<MeasurementModel>();
 
-			var measurements = RetrieveCollectionOfMeasurements().Where(p => p.Status == Telerik.Sitefinity.GenericContent.Model.ContentLifecycleStatus.Live && p.Visible == true);
+			var measurements = RetrieveCollectionOfMeasurements().Where(p => p.Status == ContentLifecycleStatus.Live && p.Visible == true);
 
 			foreach (var measurement in measurements)
 			{

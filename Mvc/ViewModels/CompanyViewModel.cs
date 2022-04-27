@@ -9,6 +9,6 @@ namespace SitefinityWebApp.MVC.ViewModels
     public class CompanyViewModel
     {
         public CompanyModel Company { get; set; }
-        public IEnumerable<MeasurementModel> Measurements { get; set; }
+        public List<MeasurementModel> Measurements { get; set; }
     }
 }
