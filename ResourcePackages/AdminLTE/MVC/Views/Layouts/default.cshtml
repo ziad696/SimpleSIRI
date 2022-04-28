@@ -53,11 +53,14 @@
     @Html.Section("bottom")
     
     <!-- jQuery -->
-    @* @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/jquery/jquery.min.js"), "bottom") *@
+    @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/jquery/jquery.min.js"), "bottom")
     <!-- Bootstrap 4 -->
-    @* @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"), "bottom") *@
+    @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"), "bottom")
     <!-- AdminLTE App -->
     @Html.Script(Url.WidgetContent("~/ResourcePackages/AdminLTE/assets/dist/js/adminlte.min.js"), "bottom", true)
 
+    <script type="text/javascript">
+        jQuery.noConflict(true);
+    </script>
 </body>
 </html>
