@@ -5,4 +5,5 @@
 -	Database backup 	: [https://drive.google.com/file/d/1hIVd8nC4mOxf45hG6Iytft26fI37gnJD/view?usp=sharing](https://drive.google.com/file/d/1hIVd8nC4mOxf45hG6Iytft26fI37gnJD/view?usp=sharing)
 
 Email : admin@admin.com
-password : password
+
+Password : password
